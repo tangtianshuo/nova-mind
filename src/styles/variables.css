@@ -1,0 +1,189 @@
+/* Nova Mind Design System v3 - 科技感 + 自然色彩 */
+
+/* 深色主题 (默认) */
+:root {
+  /* 主色调 - 科技蓝 */
+  --primary-50: #E0F2FE;
+  --primary-100: #BAE6FD;
+  --primary-200: #7DD3FC;
+  --primary-300: #38BDF8;
+  --primary-400: #0EA5E9;
+  --primary-500: #0284C7;
+  --primary-600: #0369A1;
+  --primary-700: #075985;
+  --primary-800: #0C4A6E;
+  --primary-glow: rgba(14, 165, 233, 0.4);
+  --primary-gradient: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+
+  /* 辅助色 - 自然紫 */
+  --secondary-50: #F3E8FF;
+  --secondary-100: #E9D5FF;
+  --secondary-200: #D8B4FE;
+  --secondary-300: #C084FC;
+  --secondary-400: #A855F7;
+  --secondary-500: #9333EA;
+  --secondary-600: #7E22CE;
+  --secondary-glow: rgba(168, 85, 247, 0.4);
+  --secondary-gradient: linear-gradient(135deg, #A855F7 0%, #9333EA 100%);
+
+  /* 成功色 - 自然绿 */
+  --success-50: #DCFCE7;
+  --success-100: #BBF7D0;
+  --success-500: #22C55E;
+  --success-600: #16A34A;
+  --success-glow: rgba(34, 197, 94, 0.3);
+
+  /* 警告色 - 自然黄 */
+  --warning-50: #FEF3C7;
+  --warning-100: #FDE68A;
+  --warning-500: #EAB308;
+  --warning-600: #CA8A04;
+
+  /* 错误色 - 柔和红 */
+  --error-50: #FEE2E2;
+  --error-100: #FECACA;
+  --error-500: #EF4444;
+  --error-600: #DC2626;
+
+  /* 灰度色阶 - 深色 */
+  --gray-50: #18181B;
+  --gray-100: #27272A;
+  --gray-200: #3F3F46;
+  --gray-300: #52525B;
+  --gray-400: #71717A;
+  --gray-500: #A1A1AA;
+  --gray-600: #D4D4D8;
+  --gray-700: #E4E4E7;
+  --gray-800: #F4F4F5;
+  --gray-900: #FAFAFA;
+
+  /* 背景色 - 深色系 */
+  --bg-body: #09090B;
+  --bg-card: #18181B;
+  --bg-card-hover: #27272A;
+  --bg-sidebar: #0F0F0F;
+  --bg-hover: #27272A;
+  --bg-selected: rgba(14, 165, 233, 0.15);
+  --bg-input: #1F1F1F;
+  --bg-overlay: rgba(0, 0, 0, 0.8);
+  --bg-code: #0F172A;
+
+  /* 边框色 */
+  --border-default: #27272A;
+  --border-subtle: #1F1F1F;
+  --border-focus: #0EA5E9;
+  --border-error: #EF4444;
+
+  /* 文字色 */
+  --text-heading: #FAFAFA;
+  --text-body: #E4E4E7;
+  --text-secondary: #A1A1AA;
+  --text-placeholder: #71717A;
+  --text-disabled: #52525B;
+  --text-link: #0EA5E9;
+  --text-inverse: #09090B;
+  --text-on-primary: #FFFFFF;
+
+  /* 渐变色 */
+  --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #7C3AED 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
+  --gradient-card: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+
+  /* 发光效果 */
+  --glow-sm: 0 0 10px rgba(14, 165, 233, 0.3);
+  --glow-md: 0 0 20px rgba(14, 165, 233, 0.4);
+  --glow-lg: 0 0 40px rgba(14, 165, 233, 0.5);
+  --glow-primary: 0 0 30px rgba(14, 165, 233, 0.3);
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+}
+
+/* 浅色主题 */
+.light {
+  --bg-body: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --bg-sidebar: #FFFFFF;
+  --bg-hover: #F1F5F9;
+  --bg-selected: rgba(14, 165, 233, 0.1);
+  --bg-input: #FFFFFF;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-code: #0F172A;
+
+  --border-default: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-focus: #0EA5E9;
+
+  --text-heading: #0F172A;
+  --text-body: #334155;
+  --text-secondary: #64748B;
+  --text-placeholder: #94A3B8;
+  --text-disabled: #CBD5E1;
+  --text-link: #0284C7;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 基础样式 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 焦点样式 */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* 选中样式 */
+::selection {
+  background-color: var(--primary-400);
+  color: white;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
+}
+
+/* 过渡效果 */
+* {
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,140 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: 'class',
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#E0F2FE',
+          100: '#BAE6FD',
+          200: '#7DD3FC',
+          300: '#38BDF8',
+          400: '#0EA5E9',
+          500: '#0284C7',
+          600: '#0369A1',
+          700: '#075985',
+          800: '#0C4A6E',
+          900: '#0C4A6E',
+          glow: 'rgba(14, 165, 233, 0.4)',
+        },
+        secondary: {
+          50: '#F3E8FF',
+          100: '#E9D5FF',
+          200: '#D8B4FE',
+          300: '#C084FC',
+          400: '#A855F7',
+          500: '#9333EA',
+          600: '#7E22CE',
+          glow: 'rgba(168, 85, 247, 0.4)',
+        },
+        success: {
+          50: '#DCFCE7',
+          100: '#BBF7D0',
+          400: '#22C55E',
+          500: '#22C55E',
+          600: '#16A34A',
+        },
+        warning: {
+          50: '#FEF3C7',
+          100: '#FDE68A',
+          400: '#EAB308',
+          500: '#EAB308',
+          600: '#CA8A04',
+        },
+        error: {
+          50: '#FEE2E2',
+          100: '#FECACA',
+          400: '#EF4444',
+          500: '#EF4444',
+          600: '#DC2626',
+        },
+        gray: {
+          50: '#18181B',
+          100: '#27272A',
+          200: '#3F3F46',
+          300: '#52525B',
+          400: '#71717A',
+          500: '#A1A1AA',
+          600: '#D4D4D8',
+          700: '#E4E4E7',
+          800: '#F4F4F5',
+          900: '#FAFAFA',
+        },
+        background: {
+          body: 'var(--bg-body)',
+          card: 'var(--bg-card)',
+          hover: 'var(--bg-hover)',
+          selected: 'var(--bg-selected)',
+          input: 'var(--bg-input)',
+          overlay: 'var(--bg-overlay)',
+          code: 'var(--bg-code)',
+        },
+        border: {
+          DEFAULT: 'var(--border-default)',
+          subtle: 'var(--border-subtle)',
+          focus: 'var(--border-focus)',
+        },
+        text: {
+          heading: 'var(--text-heading)',
+          body: 'var(--text-body)',
+          secondary: 'var(--text-secondary)',
+          placeholder: 'var(--text-placeholder)',
+          disabled: 'var(--text-disabled)',
+          link: 'var(--text-link)',
+        },
+        glow: {
+          primary: '0 0 30px rgba(14, 165, 233, 0.3)',
+          secondary: '0 0 30px rgba(168, 85, 247, 0.3)',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', "'Segoe UI'", 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+      },
+      borderRadius: {
+        DEFAULT: '10px',
+        sm: '6px',
+        md: '10px',
+        lg: '14px',
+        xl: '18px',
+        '2xl': '20px',
+        full: '9999px',
+      },
+      boxShadow: {
+        DEFAULT: '0 4px 6px rgba(0, 0, 0, 0.5)',
+        sm: '0 1px 2px rgba(0, 0, 0, 0.4)',
+        md: '0 4px 6px rgba(0, 0, 0, 0.5)',
+        lg: '0 10px 15px rgba(0, 0, 0, 0.6)',
+        glow: '0 0 30px rgba(14, 165, 233, 0.3)',
+        'glow-lg': '0 0 40px rgba(14, 165, 233, 0.4)',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops)',
+        'glow-primary': 'radial-gradient(ellipse at center, rgba(14, 165, 233, 0.15) 0%, transparent 70%)',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      transitionDuration: {
+        DEFAULT: '150ms',
+      },
+      animation: {
+        'glow-pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
+}

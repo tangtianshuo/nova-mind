@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Mind - 诺瓦智源</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary-50: #EFF6FF;
+            --color-primary-100: #DBEAFE;
+            --color-primary-200: #BFDBFE;
+            --color-primary-300: #93C5FD;
+            --color-primary-400: #60A5FA;
+            --color-primary-500: #3B82F6;
+            --color-primary-600: #2563EB;
+            --color-primary-700: #1D4ED8;
+            --color-primary-800: #1E40AF;
+            --color-primary-900: #1E3A8A;
+            --color-success-500: #22C55E;
+            --color-warning-500: #F59E0B;
+            --color-error-500: #EF4444;
+            --color-gray-50: #FAFAFA;
+            --color-gray-100: #F4F4F5;
+            --color-gray-200: #E4E4E7;
+            --color-gray-300: #D4D4D8;
+            --color-gray-400: #A1A1AA;
+            --color-gray-500: #71717A;
+            --color-gray-600: #52525B;
+            --color-gray-700: #3F3F46;
+            --color-gray-800: #27272A;
+            --color-gray-900: #18181B;
+            --bg-body: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-sidebar: #FAFAFA;
+            --bg-hover: #F4F4F5;
+            --bg-selected: #EFF6FF;
+            --bg-overlay: rgba(0, 0, 0, 0.5);
+            --border-default: #E4E4E7;
+            --border-focus: #3B82F6;
+            --text-heading: #18181B;
+            --text-body: #27272A;
+            --text-secondary: #52525B;
+            --text-placeholder: #71717A;
+            --text-disabled: #A1A1AA;
+            --text-link: #3B82F6;
+            --text-inverse: #FFFFFF;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --sidebar-width: 280px;
+            --input-height: 120px;
+        }
+
+        [data-theme="dark"] {
+            --color-primary-500: #60A5FA;
+            --color-primary-600: #93C5FD;
+            --color-primary-700: #BFDBFE;
+            --bg-body: #09090B;
+            --bg-card: #18181B;
+            --bg-sidebar: #18181B;
+            --bg-hover: #27272A;
+            --bg-selected: #1E3A5F;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+            --border-default: #3F3F46;
+            --border-focus: #60A5FA;
+            --text-heading: #FAFAFA;
+            --text-body: #E4E4E7;
+            --text-secondary: #A1A1AA;
+            --text-placeholder: #71717A;
+            --text-disabled: #52525B;
+            --text-inverse: #18181B;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-default);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, background-color 0.25s ease;
+        }
+
+        .sidebar-header {
+            padding: var(--space-4) var(--space-4) var(--space-2);
+            border-bottom: 1px solid var(--border-default);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-heading);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .sidebar-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3) var(--space-4);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-header-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: var(--space-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s ease;
+        }
+
+        .section-header-btn:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .skill-list, .conversation-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 var(--space-2);
+        }
+
+        .skill-item, .conversation-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            margin-bottom: var(--space-1);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .skill-item:hover, .conversation-item:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .skill-item.active, .conversation-item.active {
+            background-color: var(--bg-selected);
+        }
+
+        .skill-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .skill-icon.prd { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+        .skill-icon.competitor { background: linear-gradient(135deg, #8B5CF6, #6D28D9); }
+        .skill-icon.story { background: linear-gradient(135deg, #14B8A6, #0D9488); }
+        .skill-icon.meeting { background: linear-gradient(135deg, #F59E0B, #D97706); }
+
+        .skill-info, .conversation-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .skill-name, .conversation-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-heading);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .skill-desc, .conversation-preview {
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+
+        .conversation-time {
+            font-size: 11px;
+            color: var(--text-placeholder);
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            padding: var(--space-3) var(--space-4);
+            border-top: 1px solid var(--border-default);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .settings-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .settings-btn:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2);
+            background: var(--bg-hover);
+            border-radius: var(--radius-md);
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .theme-btn.active {
+            background: var(--bg-card);
+            color: var(--color-primary-500);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background-color: var(--bg-body);
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--border-default);
+            background-color: var(--bg-card);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: var(--space-1) var(--space-2);
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-700);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .skill-tag {
+            background-color: rgba(96, 165, 250, 0.15);
+            color: var(--color-primary-400);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary-500);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-600);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-default);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-secondary);
+            padding: var(--space-8);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-heading);
+            margin-bottom: var(--space-2);
+        }
+
+        .empty-desc {
+            font-size: 14px;
+            margin-bottom: var(--space-6);
+            max-width: 400px;
+        }
+
+        .empty-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .message {
+            display: flex;
+            gap: var(--space-3);
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+            color: white;
+        }
+
+        .message.assistant .message-avatar {
+            background: var(--bg-hover);
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-bubble {
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-xl);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .message.user .message-bubble {
+            background-color: var(--color-primary-500);
+            color: white;
+            border-bottom-right-radius: var(--radius-sm);
+        }
+
+        .message.assistant .message-bubble {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-default);
+            color: var(--text-body);
+            border-bottom-left-radius: var(--radius-sm);
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-top: var(--space-2);
+            font-size: 12px;
+            color: var(--text-placeholder);
+        }
+
+        .message.user .message-meta {
+            justify-content: flex-end;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: var(--space-1);
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .message:hover .message-actions {
+            opacity: 1;
+        }
+
+        .message-action-btn {
+            background: none;
+            border: none;
+            padding: var(--space-1);
+            color: var(--text-placeholder);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .message-action-btn:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: var(--space-3) var(--space-4);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-placeholder);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .input-container {
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--border-default);
+            background-color: var(--bg-card);
+        }
+
+        .input-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-body);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .input-field {
+            width: 100%;
+            min-height: 60px;
+            max-height: 200px;
+            padding: var(--space-3) var(--space-4);
+            border: none;
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-body);
+            resize: none;
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: var(--text-placeholder);
+        }
+
+        .input-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-3);
+            border-top: 1px solid var(--border-default);
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+
+        .toolbar-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: var(--space-1) var(--space-2);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .toolbar-btn:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .send-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            background-color: var(--color-primary-500);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .send-btn:hover {
+            background-color: var(--color-primary-600);
+        }
+
+        .send-btn:disabled {
+            background-color: var(--color-gray-300);
+            cursor: not-allowed;
+        }
+
+        .shortcut-hint {
+            font-size: 11px;
+            color: var(--text-placeholder);
+            margin-left: var(--space-2);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: 90%;
+            max-width: 480px;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) var(--space-5);
+            border-bottom: 1px solid var(--border-default);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            padding: var(--space-1);
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .modal-close:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-heading);
+        }
+
+        .modal-body {
+            padding: var(--space-5);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-heading);
+            margin-bottom: var(--space-2);
+        }
+
+        .form-label .required {
+            color: var(--color-error-500);
+            margin-left: var(--space-1);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-3);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            font-size: 14px;
+            font-family: var(--font-sans);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-placeholder);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-5);
+            border-top: 1px solid var(--border-default);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.success { border-color: var(--color-success-500); }
+        .toast.error { border-color: var(--color-error-500); }
+        .toast.warning { border-color: var(--color-warning-500); }
+        .toast.info { border-color: var(--color-primary-500); }
+
+        .toast-icon {
+            font-size: 18px;
+        }
+
+        .toast.success .toast-icon { color: var(--color-success-500); }
+        .toast.error .toast-icon { color: var(--color-error-500); }
+        .toast.warning .toast-icon { color: var(--color-warning-500); }
+        .toast.info .toast-icon { color: var(--color-primary-500); }
+
+        .toast-message {
+            font-size: 14px;
+            color: var(--text-body);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            padding: var(--space-2);
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 100;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .main-header {
+                padding: var(--space-3) var(--space-4);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-gray-400);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-gray-500);
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--color-primary-500);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">N</div>
+                    <span>Nova Mind</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <span>Skills</span>
+                    <button class="section-header-btn" title="新建 Skill">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="skill-list">
+                    <div class="skill-item active" data-skill="prd">
+                        <div class="skill-icon prd">📄</div>
+                        <div class="skill-info">
+                            <div class="skill-name">PRD 生成器</div>
+                            <div class="skill-desc">根据功能描述生成标准 PRD 文档</div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-skill="competitor">
+                        <div class="skill-icon competitor">🔍</div>
+                        <div class="skill-info">
+                            <div class="skill-name">竞品分析</div>
+                            <div class="skill-desc">深度分析竞品功能与策略</div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-skill="story">
+                        <div class="skill-icon story">📝</div>
+                        <div class="skill-info">
+                            <div class="skill-name">用户故事</div>
+                            <div class="skill-desc">将需求转化为用户故事</div>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-skill="meeting">
+                        <div class="skill-icon meeting">📋</div>
+                        <div class="skill-info">
+                            <div class="skill-name">会议纪要</div>
+                            <div class="skill-desc">快速整理会议要点</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <span>历史会话</span>
+                    <button class="section-header-btn" title="新建会话">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="conversation-list">
+                    <div class="conversation-item active">
+                        <div class="conversation-info">
+                            <div class="conversation-title">用户登录功能 PRD</div>
+                            <div class="conversation-preview">生成标准 PRD 文档...</div>
+                        </div>
+                        <div class="conversation-time">刚刚</div>
+                    </div>
+                    <div class="conversation-item">
+                        <div class="conversation-info">
+                            <div class="conversation-title">竞品分析报告</div>
+                            <div class="conversation-preview">分析竞品 A 的核心...</div>
+                        </div>
+                        <div class="conversation-time">2小时前</div>
+                    </div>
+                    <div class="conversation-item">
+                        <div class="conversation-info">
+                            <div class="conversation-title">支付功能用户故事</div>
+                            <div class="conversation-preview">作为用户，我希望...</div>
+                        </div>
+                        <div class="conversation-time">昨天</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="settings-btn" id="settingsBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    设置
+                </button>
+                <div class="theme-toggle">
+                    <button class="theme-btn" data-theme="light" title="亮色模式">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                    <button class="theme-btn active" data-theme="dark" title="暗色模式">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-title">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1>用户登录功能 PRD</h1>
+                    <span class="skill-tag">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                        PRD 生成器
+                    </span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        导出
+                    </button>
+                    <button class="btn btn-primary" id="newChatBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        新建会话
+                    </button>
+                </div>
+            </header>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="message user">
+                    <div class="message-avatar">U</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            请帮我生成用户登录功能的 PRD 文档，需要支持手机号、邮箱两种登录方式，包含验证码、密码找回等功能。
+                        </div>
+                        <div class="message-meta">
+                            <span>10:30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message assistant">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <h3 style="margin-bottom: 12px; color: var(--text-heading);">用户登录功能 PRD</h3>
+                            <p style="margin-bottom: 12px;"><strong>1. 背景与目标</strong></p>
+                            <p style="margin-bottom: 12px;">本文档定义了用户登录功能的产品需求，旨在提供安全、便捷的用户认证体验。</p>
+                            <p style="margin-bottom: 12px;"><strong>2. 功能范围</strong></p>
+                            <ul style="margin-bottom: 12px; padding-left: 20px;">
+                                <li>手机号登录（验证码/密码）</li>
+                                <li>邮箱登录（验证码/密码）</li>
+                                <li>密码找回功能</li>
+                                <li>账号安全设置</li>
+                            </ul>
+                            <p style="margin-bottom: 12px;"><strong>3. 功能详述</strong></p>
+                            <p style="margin-bottom: 8px;"><strong>3.1 手机号登录</strong></p>
+                            <ul style="margin-bottom: 12px; padding-left: 20px;">
+                                <li>输入：11位手机号</li>
+                                <li>验证：格式校验 + 验证码/密码</li>
+                                <li>安全：6位验证码，5分钟有效期</li>
+                            </ul>
+                            <p><em>正在生成更多内容...</em></p>
+                        </div>
+                        <div class="message-meta">
+                            <span>10:31</span>
+                            <div class="message-actions">
+                                <button class="message-action-btn" title="复制">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                                <button class="message-action-btn" title="重新生成">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 4 23 10 17 10"></polyline>
+                                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <div class="input-box">
+                        <textarea class="input-field" id="inputField" placeholder="输入消息... (Shift+Enter 换行，Enter 发送)" rows="1"></textarea>
+                        <div class="input-toolbar">
+                            <div class="toolbar-left">
+                                <button class="toolbar-btn" title="添加附件">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                    </svg>
+                                    附件
+                                </button>
+                                <button class="toolbar-btn" id="selectSkillBtn" title="选择 Skill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                    </svg>
+                                    Skill
+                                </button>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <button class="send-btn" id="sendBtn">
+                                    发送
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </button>
+                                <span class="shortcut-hint">Ctrl+Enter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="skillModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">PRD 生成器</h2>
+                <button class="modal-close" id="closeSkillModal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">功能名称 <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="featureName" placeholder="例如：用户登录功能">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">功能描述 <span class="required">*</span></label>
+                    <textarea class="form-input" id="featureDesc" placeholder="请详细描述功能需求，包括业务场景、用户角色、核心流程等..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">目标用户</label>
+                    <input type="text" class="form-input" id="targetUser" placeholder="例如：C端用户、B端管理员">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelSkillModal">取消</button>
+                <button class="btn btn-primary" id="submitSkillModal">生成 PRD</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const skillItems = document.querySelectorAll('.skill-item');
+        const conversationItems = document.querySelectorAll('.conversation-item');
+        const inputField = document.getElementById('inputField');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const skillModal = document.getElementById('skillModal');
+        const selectSkillBtn = document.getElementById('selectSkillBtn');
+        const closeSkillModal = document.getElementById('closeSkillModal');
+        const cancelSkillModal = document.getElementById('cancelSkillModal');
+        const submitSkillModal = document.getElementById('submitSkillModal');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const toastContainer = document.getElementById('toastContainer');
+
+        let currentTheme = 'dark';
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.theme === theme);
+            });
+            localStorage.setItem('theme', theme);
+        }
+
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+        });
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !mobileMenuBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        skillItems.forEach(item => {
+            item.addEventListener('click', () => {
+                skillItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                openSkillModal();
+            });
+        });
+
+        conversationItems.forEach(item => {
+            item.addEventListener('click', () => {
+                conversationItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        function openSkillModal() {
+            skillModal.classList.add('active');
+        }
+
+        function closeSkillModalFn() {
+            skillModal.classList.remove('active');
+        }
+
+        selectSkillBtn.addEventListener('click', openSkillModal);
+        closeSkillModal.addEventListener('click', closeSkillModalFn);
+        cancelSkillModal.addEventListener('click', closeSkillModalFn);
+
+        skillModal.addEventListener('click', (e) => {
+            if (e.target === skillModal) {
+                closeSkillModalFn();
+            }
+        });
+
+        submitSkillModal.addEventListener('click', () => {
+            const featureName = document.getElementById('featureName').value;
+            const featureDesc = document.getElementById('featureDesc').value;
+
+            if (!featureName || !featureDesc) {
+                showToast('error', '请填写必填项');
+                return;
+            }
+
+            closeSkillModalFn();
+            showToast('success', '正在生成 PRD...');
+            addUserMessage(`请帮我生成「${featureName}」的 PRD 文档：${featureDesc}`);
+            simulateAIResponse();
+        });
+
+        function showToast(type, message) {
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type]}</span>
+                <span class="toast-message">${message}</span>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function addUserMessage(content) {
+            const messageHtml = `
+                <div class="message user">
+                    <div class="message-avatar">U</div>
+                    <div class="message-content">
+                        <div class="message-bubble">${content}</div>
+                        <div class="message-meta">
+                            <span>${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.insertAdjacentHTML('beforeend', messageHtml);
+            scrollToBottom();
+        }
+
+        function addAIMessage(content) {
+            const messageHtml = `
+                <div class="message assistant">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-bubble">${content}</div>
+                        <div class="message-meta">
+                            <span>${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</span>
+                            <div class="message-actions">
+                                <button class="message-action-btn" title="复制" onclick="copyMessage(this)">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                                <button class="message-action-btn" title="重新生成">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 4 23 10 17 10"></polyline>
+                                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.insertAdjacentHTML('beforeend', messageHtml);
+            scrollToBottom();
+        }
+
+        function addTypingIndicator() {
+            const typingHtml = `
+                <div class="message assistant typing" id="typingIndicator">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <div class="typing-indicator">
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            chatContainer.insertAdjacentHTML('beforeend', typingHtml);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function simulateAIResponse() {
+            addTypingIndicator();
+            
+            setTimeout(() => {
+                removeTypingIndicator();
+                addAIMessage(`
+                    <p style="margin-bottom: 12px;">好的，我来为您生成 PRD 文档。以下是初步的内容框架：</p>
+                    <h4 style="margin-bottom: 8px; color: var(--text-heading);">1. 功能概述</h4>
+                    <p style="margin-bottom: 12px;">本功能旨在为用户提供安全便捷的登录体验...</p>
+                    <h4 style="margin-bottom: 8px; color: var(--text-heading);">2. 用户场景</h4>
+                    <ul style="margin-bottom: 12px; padding-left: 20px;">
+                        <li>新用户首次注册登录</li>
+                        <li>老用户日常登录</li>
+                        <li>忘记密码找回</li>
+                    </ul>
+                    <p><em>如需更详细的内容，请继续说明您的需求。</em></p>
+                `);
+                showToast('success', '生成完成');
+            }, 2000);
+        }
+
+        function copyMessage(btn) {
+            const bubble = btn.closest('.message-content').querySelector('.message-bubble');
+            navigator.clipboard.writeText(bubble.innerText).then(() => {
+                showToast('success', '已复制到剪贴板');
+            });
+        }
+
+        function sendMessage() {
+            const content = inputField.value.trim();
+            if (!content) return;
+
+            addUserMessage(content);
+            inputField.value = '';
+            inputField.style.height = 'auto';
+            
+            simulateAIResponse();
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+
+        inputField.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        inputField.addEventListener('input', () => {
+            inputField.style.height = 'auto';
+            inputField.style.height = Math.min(inputField.scrollHeight, 200) + 'px';
+        });
+
+        settingsBtn.addEventListener('click', () => {
+            showToast('info', '设置功能开发中...');
+        });
+
+        exportBtn.addEventListener('click', () => {
+            showToast('success', '正在导出文档...');
+        });
+
+        newChatBtn.addEventListener('click', () => {
+            conversationItems.forEach(i => i.classList.remove('active'));
+            inputField.value = '';
+            inputField.focus();
+            showToast('info', '已创建新会话');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                e.preventDefault();
+                newChatBtn.click();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                exportBtn.click();
+            }
+            if (e.key === 'Escape') {
+                closeSkillModalFn();
+            }
+        });
+    </script>
+</body>
+</html>

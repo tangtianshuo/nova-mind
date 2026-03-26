@@ -1,0 +1,27 @@
+{
+  "\$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "http:default",
+    {
+      "identifier": "http:allow-connect",
+      "allow": [
+        { "url": "http://127.0.0.1:*" },
+        { "url": "https://api.github.com" },
+        { "url": "https://github.com" },
+        { "url": "https://*.ghproxy.com" }
+      ]
+    },
+    {
+      "identifier": "fs:allow-appdata-read",
+      "allow": [{ "path": "$APPDATA/**" }]
+    },
+    {
+      "identifier": "fs:allow-appdata-write",
+      "allow": [{ "path": "$APPDATA/**" }]
+    }
+  ]
+}
