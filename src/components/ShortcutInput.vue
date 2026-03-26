@@ -79,12 +79,12 @@ const displayShortcut = computed(() => {
     :class="{ 'cursor-not-allowed': disabled }"
   >
     <div
-      class="relative flex items-center gap-3 rounded-xl border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur-sm transition-all duration-200 dark:bg-slate-800/80"
+      class="relative flex items-center gap-3 rounded-xl border bg-white dark:bg-slate-800 px-4 py-2.5 shadow-sm transition-all duration-200"
       :class="[
         disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-        isRecording ? 'border-primary-400 ring-2 ring-primary-400/30 dark:border-primary-500' : 'border-slate-200 dark:border-slate-700',
-        conflict ? 'border-red-400 ring-2 ring-red-400/30' : '',
-        !disabled && !isRecording && !conflict && 'hover:border-primary-300 hover:shadow-md dark:hover:border-primary-400/50'
+        isRecording ? 'border-primary-400 dark:border-primary-500 ring-2 ring-primary-400/30 dark:ring-primary-500/30' : 'border-slate-200 dark:border-slate-700',
+        conflict ? 'border-red-400 dark:border-red-500 ring-2 ring-red-400/30' : '',
+        !disabled && !isRecording && !conflict && 'hover:border-primary-300 dark:hover:border-primary-400/50 hover:shadow-md dark:hover:shadow-slate-900/50'
       ]"
       tabindex="0"
       role="button"
@@ -95,7 +95,7 @@ const displayShortcut = computed(() => {
       @blur="handleBlur"
       @keydown.enter.space.prevent="startRecording"
     >
-      <div class="flex-shrink-0 text-slate-400 transition-colors duration-200 dark:text-slate-500">
+      <div class="flex-shrink-0 text-slate-400 dark:text-slate-500 transition-colors duration-200">
         <Keyboard
           v-if="!isRecording"
           class="h-4 w-4"
@@ -121,7 +121,7 @@ const displayShortcut = computed(() => {
       <button
         v-if="!isRecording && !disabled"
         type="button"
-        class="flex-shrink-0 rounded-lg p-1.5 text-slate-400 opacity-0 transition-all duration-200 hover:bg-slate-100 hover:text-slate-600 group-hover:opacity-100 dark:hover:bg-slate-700 dark:hover:text-slate-300"
+        class="flex-shrink-0 rounded-lg p-1.5 text-slate-400 dark:text-slate-500 opacity-0 transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300 group-hover:opacity-100"
         aria-label="录制快捷键"
         @click.stop="startRecording"
       >
@@ -131,7 +131,7 @@ const displayShortcut = computed(() => {
       <button
         v-if="isRecording"
         type="button"
-        class="flex-shrink-0 rounded-lg p-1.5 text-slate-400 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300"
+        class="flex-shrink-0 rounded-lg p-1.5 text-slate-400 dark:text-slate-500 transition-colors duration-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300"
         aria-label="取消录制"
         @click.stop="handleBlur"
       >
@@ -149,7 +149,7 @@ const displayShortcut = computed(() => {
     >
       <div
         v-if="conflict"
-        class="absolute -top-7 left-0 flex items-center gap-1 text-xs font-medium text-red-500"
+        class="absolute -top-7 left-0 flex items-center gap-1 text-xs font-medium text-red-500 dark:text-red-400"
       >
         <AlertCircle class="h-3 w-3" />
         <span>快捷键冲突</span>

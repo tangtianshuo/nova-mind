@@ -1,38 +1,9 @@
 import { marked } from 'marked';
-import hljs from 'highlight.js';
-
-const defaultOptions = {
-  gfm: true,
-  breaks: true,
-};
 
 marked.setOptions({
   gfm: true,
   breaks: true,
 });
-
-const renderer = new marked.Renderer();
-
-renderer.code = function(code: string, infostring: string | undefined, escaped: boolean) {
-  const lang = infostring || '';
-  if (!lang || !hljs.getLanguage(lang)) {
-    return `<pre><code>${escapeHtml(text)}</code></pre>`;
-  }
-  return `<pre class="hljs"><code class="language-${lang}">${highlight(text, lang)}</code></pre>`;
-};
-
-renderer.table = function({ header, body }: { header: string; body: string }) {
-  return `
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead class="bg-gray-50 dark:bg-gray-800">${header}</thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">${body}</tbody>
-      </table>
-    </div>
-  `;
-};
-
-marked.use({ renderer });
 
 export function useMarkdown() {
   function renderMarkdown(content: string): string {

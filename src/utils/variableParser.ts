@@ -1,11 +1,11 @@
 const VARIABLE_REGEX = /\{\{\{([a-zA-Z_][a-zA-Z0-9_]*)\}\}/g;
 
-const ESCAPE_REGEX = /\\([{}])/g;
-
 export function extractVariables(template: string): string[] {
   if (!template) return [];
 
   const matches = template.match(VARIABLE_REGEX);
+  if (!matches) return [];
+
   const variables: string[] = [];
 
   for (const match of matches) {

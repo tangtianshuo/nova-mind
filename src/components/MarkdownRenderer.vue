@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { marked } from 'marked';
-import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 
 const props = defineProps<{ content: string; class?: string }>();

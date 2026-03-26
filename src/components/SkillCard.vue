@@ -9,8 +9,8 @@ const emit = defineEmits<{ (e: 'edit', skill: Skill): void; (e: 'delete', id: nu
 <template>
   <div
     class="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700
-           bg-white/80 dark:bg-slate-800/80 p-5
-           shadow-sm backdrop-blur-sm
+           bg-white dark:bg-slate-800 p-5
+           shadow-sm
            transition-all duration-200
            hover:border-primary-300/50 dark:hover:border-primary-400/30
            hover:shadow-lg"
@@ -25,8 +25,7 @@ const emit = defineEmits<{ (e: 'edit', skill: Skill): void; (e: 'delete', id: nu
         <span
           v-if="skill.category"
           class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium
-                 bg-primary-100/80 text-primary-700
-                 dark:bg-primary-900/30 dark:text-primary-300
+                 bg-primary-100/80 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300
                  border border-primary-200/50 dark:border-primary-700/50"
         >
           <Tag class="w-3 h-3" />
@@ -41,7 +40,7 @@ const emit = defineEmits<{ (e: 'edit', skill: Skill): void; (e: 'delete', id: nu
         {{ skill.description }}
       </p>
 
-      <div class="rounded-xl bg-slate-50/80 dark:bg-slate-900/50 p-3 mb-4">
+      <div class="rounded-xl bg-slate-50/80 dark:bg-slate-800/50 p-3 mb-4">
         <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <span>版本 {{ skill.version }}</span>
           <span>{{ new Date(skill.created_at).toLocaleDateString() }}</span>

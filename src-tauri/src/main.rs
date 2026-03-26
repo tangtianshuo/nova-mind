@@ -75,6 +75,12 @@ fn main() {
             commands::save_api_key,
             commands::get_api_key_masked,
             commands::delete_api_key,
+            commands::openclaw_check_status,
+            commands::openclaw_connect,
+            commands::openclaw_disconnect,
+            commands::openclaw_retry_connect,
+            commands::openclaw_configure,
+            commands::openclaw_get_config,
         ])
         .run(tauri::generate_context!())
         .expect("Nova Mind 启动失败");

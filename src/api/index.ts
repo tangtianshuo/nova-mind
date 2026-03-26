@@ -153,3 +153,69 @@ export const systemApi = {
     return invoke<HealthStatus>('health_check');
   },
 };
+
+export interface ExportOptions {
+  conversationId: number;
+  title: string;
+  filePath: string;
+  includeMetadata?: boolean;
+}
+
+export const exportApi = {
+  async exportMarkdown(options: ExportOptions): Promise<CommandResult<string>> {
+    return invoke<CommandResult<string>>('export_markdown', {
+      conversationId: options.conversationId,
+      title: options.title,
+      filePath: options.filePath,
+      includeMetadata: options.includeMetadata ?? true,
+    });
+  },
+
+  async exportWord(options: Omit<ExportOptions, 'includeMetadata'>): Promise<CommandResult<string>> {
+    return invoke<CommandResult<string>>('export_word', {
+      conversationId: options.conversationId,
+      title: options.title,
+      filePath: options.filePath,
+    });
+  },
+};
+
+export interface OpenClawConfig {
+  gateway_url: string;
+  api_key?: string;
+  model?: string;
+  thinking_level: string;
+}
+
+export interface GatewayStatus {
+  connected: boolean;
+  status: 'disconnected' | 'connecting' | 'connected' | 'error';
+  version?: string;
+  error?: string;
+}
+
+export const openclawApi = {
+  async checkStatus(): Promise<GatewayStatus> {
+    return invoke<GatewayStatus>('openclaw_check_status');
+  },
+
+  async connect(): Promise<CommandResult<void>> {
+    return invoke<CommandResult<void>>('openclaw_connect');
+  },
+
+  async disconnect(): Promise<CommandResult<void>> {
+    return invoke<CommandResult<void>>('openclaw_disconnect');
+  },
+
+  async retryConnect(): Promise<CommandResult<void>> {
+    return invoke<CommandResult<void>>('openclaw_retry_connect');
+  },
+
+  async configure(config: OpenClawConfig): Promise<CommandResult<void>> {
+    return invoke<CommandResult<void>>('openclaw_configure', { config });
+  },
+
+  async getConfig(): Promise<OpenClawConfig> {
+    return invoke<OpenClawConfig>('openclaw_get_config');
+  },
+};

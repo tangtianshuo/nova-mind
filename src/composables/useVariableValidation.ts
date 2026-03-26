@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue';
-import type { SkillVariable, VariableValidation, VariableFormValues } from '@/types';
+import type { SkillVariable, VariableFormValues } from '@/types';
 
 export interface ValidationError {
   field: string;

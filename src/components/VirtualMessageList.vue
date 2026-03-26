@@ -16,12 +16,15 @@ const emit = defineEmits<{
 const containerRef = ref<HTMLElement | null>(null);
 const isNearTop = ref(false);
 
-const rowVirtualizer = useVirtualizer({
-  count: props.messages.length,
-  getScrollElement: () => containerRef.value,
-  estimateSize: () => 100,
-  overscan: 5,
-});
+const rowVirtualizer = useVirtualizer(
+  computed(() => ({
+    count: props.messages.length,
+    getScrollElement: () => containerRef.value,
+    estimateSize: () => 100,
+    overscan: 5,
+    getItemKey: (index: number) => props.messages[index]?.id ?? index,
+  }))
+);
 
 const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems());
 const totalSize = computed(() => rowVirtualizer.value.getTotalSize());
@@ -48,10 +51,6 @@ function scrollToIndex(index: number) {
   rowVirtualizer.value.scrollToIndex(index, { align: 'start' });
 }
 
-function formatTime(dateStr: string): string {
-  return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
 defineExpose({
   scrollToBottom,
   scrollToIndex,
@@ -71,8 +70,7 @@ defineExpose({
       >
         <div
           v-for="virtualRow in virtualRows"
-          :key="virtualRow.key"
-          :ref="(el) => el && rowVirtualizer.value.measureElement(el)"
+          :key="virtualRow.index"
           :data-index="virtualRow.index"
           class="absolute left-0 w-full px-4 py-2"
           :style="{
@@ -98,15 +96,9 @@ defineExpose({
                 :content="messages[virtualRow.index]?.content || ''"
                 class="!text-gray-900 dark:!text-gray-100"
               />
-              <p
-                v-else
-                class="whitespace-pre-wrap"
-              >
+              <template v-else>
                 {{ messages[virtualRow.index]?.content }}
-              </p>
-              <p class="mt-2 text-xs opacity-60">
-                {{ formatTime(messages[virtualRow.index]?.created_at || '') }}
-              </p>
+              </template>
             </div>
           </div>
         </div>
@@ -115,21 +107,12 @@ defineExpose({
 
     <div
       v-if="isLoading"
-      class="absolute top-2 left-1/2 transform -translate-x-1/2"
+      class="absolute bottom-4 left-1/2 -translate-x-1/2"
     >
-      <div class="flex items-center gap-2 rounded-full bg-gray-800 px-4 py-2 text-white shadow-lg">
-        <div class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-        <span class="text-sm">加载更多...</span>
+      <div class="flex items-center gap-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 py-2 shadow-lg">
+        <div class="h-4 w-4 animate-spin rounded-full border-2 border-primary-500 border-t-transparent" />
+        <span class="text-sm text-gray-600 dark:text-gray-400">加载中...</span>
       </div>
     </div>
-
-    <button
-      v-if="virtualRows.length > 10"
-      class="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-white shadow-lg transition-colors hover:bg-primary-700"
-      title="滚动到底部"
-      @click="scrollToBottom"
-    >
-      ↓
-    </button>
   </div>
 </template>

@@ -14,15 +14,20 @@ export function useVirtualScroll<T>(options: UseVirtualScrollOptions<T>) {
   const estimateSize = options.estimateSize ?? 80;
   const overscan = options.overscan ?? 5;
 
-  const getItemKey = options.getItemKey ?? ((item: T, index: number) => index);
+  const getItemKey = options.getItemKey ?? ((_item: T, index: number) => index);
 
-  const virtualizer = useVirtualizer({
-    count: computed(() => items.value.length),
-    getScrollElement: () => containerRef.value,
-    estimateSize: () => estimateSize,
-    overscan,
-    getItemKey,
-  });
+  const virtualizer = useVirtualizer(
+    computed(() => ({
+      count: items.value.length,
+      getScrollElement: () => containerRef.value,
+      estimateSize: () => estimateSize,
+      overscan,
+      getItemKey: (index: number) => {
+        const item = items.value[index];
+        return item ? getItemKey(item, index) : index;
+      },
+    }))
+  );
 
   const virtualItems = computed(() => virtualizer.value.getVirtualItems());
   const totalSize = computed(() => virtualizer.value.getTotalSize());

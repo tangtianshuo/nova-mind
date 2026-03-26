@@ -1,27 +1,24 @@
 //! OpenClaw 沙箱管理模块
 
-use serde::{Deserialize, Serialize};
+pub mod client;
+pub mod error;
+pub mod protocol;
+pub mod stream;
+pub mod types;
+
 use std::path::PathBuf;
 use std::sync::Mutex;
 use tauri::AppHandle;
-use thiserror::Error;
+use crate::sandbox::client::create_shared_client;
 
-#[allow(dead_code)]
-#[derive(Error, Debug)]
-pub enum SandboxError {
-    #[error("沙箱路径无效")]
-    InvalidPath,
-    #[error("下载失败: {0}")]
-    DownloadFailed(String),
-    #[error("验证失败: {0}")]
-    VerificationFailed(String),
-    #[error("进程启动失败: {0}")]
-    ProcessStartFailed(String),
-    #[error("沙箱未初始化")]
-    NotInitialized,
-}
+pub use client::SharedOpenClawClient;
+pub use error::OpenClawError;
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub use types::ConnectionStatus;
+pub use types::GatewayStatus;
+pub use types::OpenClawConfig;
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, PartialEq)]
 pub enum SandboxStatus {
     #[serde(rename = "uninitialized")]
     Uninitialized,
@@ -35,7 +32,7 @@ pub enum SandboxStatus {
     Error,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct SandboxInfo {
     pub status: SandboxStatus,
     pub version: String,
@@ -44,6 +41,7 @@ pub struct SandboxInfo {
 }
 
 pub struct SandboxManager {
+    client: SharedOpenClawClient,
     status: Mutex<SandboxStatus>,
     version: Mutex<String>,
     path: Mutex<Option<PathBuf>>,
@@ -53,7 +51,11 @@ pub struct SandboxManager {
 
 impl SandboxManager {
     pub fn new(_app_handle: AppHandle) -> Self {
+        let config = OpenClawConfig::default();
+        let client = create_shared_client(config);
+        
         Self {
+            client,
             status: Mutex::new(SandboxStatus::Uninitialized),
             version: Mutex::new("1.0.0".to_string()),
             path: Mutex::new(None),
@@ -72,7 +74,7 @@ impl SandboxManager {
         )
     }
 
-    pub fn initialize(&self, _download_url: &str) -> Result<(), SandboxError> {
+    pub fn initialize(&self, _download_url: &str) -> Result<(), OpenClawError> {
         let mut status = self.status.lock().unwrap();
         *status = SandboxStatus::Downloading;
         drop(status);
@@ -83,9 +85,9 @@ impl SandboxManager {
         Ok(())
     }
 
-    pub fn start(&self, _port: u16) -> Result<(), SandboxError> {
+    pub fn start(&self, _port: u16) -> Result<(), OpenClawError> {
         if !self.is_initialized() {
-            return Err(SandboxError::NotInitialized);
+            return Err(OpenClawError::InvalidConfig("沙箱未初始化".to_string()));
         }
 
         let mut status = self.status.lock().unwrap();
@@ -98,7 +100,7 @@ impl SandboxManager {
         Ok(())
     }
 
-    pub fn stop(&self) -> Result<(), SandboxError> {
+    pub fn stop(&self) -> Result<(), OpenClawError> {
         let mut status = self.status.lock().unwrap();
         if *status != SandboxStatus::Running {
             return Ok(());
@@ -119,5 +121,50 @@ impl SandboxManager {
                 .unwrap_or_default(),
             port: None,
         }
+    }
+
+    pub async fn connect(&self) -> Result<(), OpenClawError> {
+        self.client.connect().await
+    }
+
+    pub async fn disconnect(&self) -> Result<(), OpenClawError> {
+        self.client.disconnect().await
+    }
+
+    #[allow(dead_code)]
+    pub async fn is_connected(&self) -> bool {
+        self.client.is_connected().await
+    }
+
+    #[allow(dead_code)]
+    pub async fn get_status_async(&self) -> ConnectionStatus {
+        self.client.get_status().await
+    }
+
+    pub async fn get_gateway_status(&self) -> GatewayStatus {
+        let status = self.client.get_status().await;
+        GatewayStatus {
+            connected: status == ConnectionStatus::Connected,
+            status,
+            version: None,
+            error: None,
+        }
+    }
+
+    pub async fn update_config(&self, config: OpenClawConfig) -> Result<(), OpenClawError> {
+        self.client.update_config(config).await
+    }
+
+    pub async fn get_config(&self) -> OpenClawConfig {
+        self.client.get_config().await
+    }
+
+    pub async fn retry_connect(&self) -> Result<(), OpenClawError> {
+        self.client.retry_connect().await
+    }
+
+    #[allow(dead_code)]
+    pub async fn subscribe(&self) -> tokio::sync::broadcast::Receiver<String> {
+        self.client.subscribe().await
     }
 }

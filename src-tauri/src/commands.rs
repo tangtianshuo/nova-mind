@@ -4,7 +4,7 @@ use crate::db::{
     CreateConversationRequest, CreateMessageRequest, CreateSkillRequest, Database,
     UpdateConversationRequest, UpdateSkillRequest,
 };
-use crate::sandbox::{SandboxInfo, SandboxManager};
+use crate::sandbox::{GatewayStatus, OpenClawConfig, SandboxInfo, SandboxManager};
 use tauri::State;
 use serde::{Deserialize, Serialize};
 
@@ -388,4 +388,60 @@ pub fn delete_api_key(
         Ok(()) => Ok(CommandResult::ok(())),
         Err(e) => Ok(CommandResult::err(e)),
     }
+}
+
+// ============ OpenClaw Gateway Commands ============
+#[tauri::command]
+pub async fn openclaw_check_status(
+    manager: State<'_, SandboxManager>,
+) -> Result<GatewayStatus, String> {
+    Ok(manager.get_gateway_status().await)
+}
+
+#[tauri::command]
+pub async fn openclaw_connect(
+    manager: State<'_, SandboxManager>,
+) -> Result<CommandResult<()>, String> {
+    match manager.connect().await {
+        Ok(()) => Ok(CommandResult::ok(())),
+        Err(e) => Ok(CommandResult::err(e.to_string())),
+    }
+}
+
+#[tauri::command]
+pub async fn openclaw_disconnect(
+    manager: State<'_, SandboxManager>,
+) -> Result<CommandResult<()>, String> {
+    match manager.disconnect().await {
+        Ok(()) => Ok(CommandResult::ok(())),
+        Err(e) => Ok(CommandResult::err(e.to_string())),
+    }
+}
+
+#[tauri::command]
+pub async fn openclaw_retry_connect(
+    manager: State<'_, SandboxManager>,
+) -> Result<CommandResult<()>, String> {
+    match manager.retry_connect().await {
+        Ok(()) => Ok(CommandResult::ok(())),
+        Err(e) => Ok(CommandResult::err(e.to_string())),
+    }
+}
+
+#[tauri::command]
+pub async fn openclaw_configure(
+    config: OpenClawConfig,
+    manager: State<'_, SandboxManager>,
+) -> Result<CommandResult<()>, String> {
+    match manager.update_config(config).await {
+        Ok(()) => Ok(CommandResult::ok(())),
+        Err(e) => Ok(CommandResult::err(e.to_string())),
+    }
+}
+
+#[tauri::command]
+pub async fn openclaw_get_config(
+    manager: State<'_, SandboxManager>,
+) -> Result<OpenClawConfig, String> {
+    Ok(manager.get_config().await)
 }

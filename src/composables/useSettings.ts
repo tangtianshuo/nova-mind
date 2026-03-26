@@ -1,13 +1,5 @@
 import { ref, watch } from 'vue';
-
-export interface Settings {
-  theme: 'light' | 'dark' | 'auto';
-  autoSave: boolean;
-  saveInterval: number;
-  apiKey: string;
-  sandboxPath: string;
-  shortcuts: Record<string, string>;
-}
+import type { Settings } from '@/types';
 
 const STORAGE_KEY = 'nova-mind-settings';
 
@@ -17,7 +9,13 @@ const defaultSettings: Settings = {
   saveInterval: 30000,
   apiKey: '',
   sandboxPath: '',
-  shortcuts: {}
+  shortcuts: {},
+  editorSettings: {
+    wordWrap: true,
+    lineNumbers: true,
+    minimap: true,
+  },
+  fontSize: 14,
 };
 
 function loadSettings(): Settings {

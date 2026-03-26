@@ -115,14 +115,11 @@ function handleCancel() {
 
           <template v-else-if="v.type === 'textarea'">
             <textarea
-              :value="String(formValues[v.name])"
+              :value="String(formValues[v.name] ?? '')"
               :placeholder="v.placeholder"
               rows="4"
               class="input w-full resize-none"
-              @input="
-                ($event.target as HTMLTextAreaElement).value = formValues[v.name] =
-                  $event.target.value
-              "
+              @input="(e) => { formValues[v.name] = (e.target as HTMLTextAreaElement).value }"
             />
           </template>
 

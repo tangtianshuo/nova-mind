@@ -13,30 +13,21 @@ const themes: { value: Theme; icon: typeof Sun; label: string }[] = [
 
 <template>
   <div class="relative">
-    <div class="flex items-center rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center rounded-lg bg-slate-100 dark:bg-slate-700 p-0.5">
       <button
         v-for="theme in themes"
         :key="theme.value"
+        @click="themeStore.setTheme(theme.value)"
         :title="theme.label"
         :aria-label="theme.label"
         :class="[
-          'relative flex h-8 w-8 items-center justify-center rounded-lg text-sm',
-          'transition-all duration-200',
+          'relative flex h-7 w-7 items-center justify-center rounded-md text-sm transition-all duration-200',
           themeStore.theme === theme.value
-            ? 'bg-gradient-to-br from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/25'
+            ? 'bg-white dark:bg-slate-600 text-primary-500 shadow-sm'
             : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
         ]"
-        @click="themeStore.setTheme(theme.value)"
       >
-        <component
-          :is="theme.icon"
-          class="h-4 w-4"
-        />
-        
-        <span
-          v-if="themeStore.theme === theme.value"
-          class="absolute inset-0 rounded-lg animate-pulse bg-primary-400/20"
-        />
+        <component :is="theme.icon" class="h-4 w-4" />
       </button>
     </div>
   </div>

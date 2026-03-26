@@ -31,4 +31,9 @@ module.exports = {
     defineExpose: 'readonly',
     withDefaults: 'readonly',
   },
+  ignorePatterns: [
+    'dist/**',
+    'node_modules/**',
+    'src-tauri/target/**',
+  ],
 }

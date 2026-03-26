@@ -1,7 +1,4 @@
-import { onMounted, onUnmounted, ref } from 'vue';
 import { ref } from 'vue';
-
-
 
 export interface Shortcut {
   key: string;

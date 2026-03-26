@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSettings } from '@composables/useSettings';
-import { useKeyboard } from '@composables/useKeyboard';
+import { useSettings } from '@/composables/useSettings';
+import { useKeyboard } from '@/composables/useKeyboard';
 import { Settings, Keyboard, Info, Sun, Moon, Monitor } from 'lucide-vue-next';
 import ShortcutInput from '@/components/ShortcutInput.vue';
 
@@ -62,7 +62,7 @@ const themeOptions = [
         <template v-if="activeTab === 'general'">
           <section
             class="rounded-2xl border border-slate-200 dark:border-slate-700
-                         bg-white/80 dark:bg-slate-800/80 p-6 backdrop-blur-sm shadow-sm"
+                         bg-white dark:bg-slate-800 p-6 shadow-sm"
           >
             <h2 class="mb-6 text-lg font-semibold text-slate-800 dark:text-slate-100">
               通用设置
@@ -134,7 +134,7 @@ const themeOptions = [
         <template v-else-if="activeTab === 'shortcuts'">
           <section
             class="rounded-2xl border border-slate-200 dark:border-slate-700
-                         bg-white/80 dark:bg-slate-800/80 p-6 backdrop-blur-sm shadow-sm"
+                         bg-white dark:bg-slate-800 p-6 shadow-sm"
           >
             <h2 class="mb-6 text-lg font-semibold text-slate-800 dark:text-slate-100">
               快捷键
@@ -162,7 +162,7 @@ const themeOptions = [
         <template v-else>
           <section
             class="rounded-2xl border border-slate-200 dark:border-slate-700
-                         bg-white/80 dark:bg-slate-800/80 p-6 backdrop-blur-sm shadow-sm"
+                         bg-white dark:bg-slate-800 p-6 shadow-sm"
           >
             <div class="flex items-center gap-4 mb-6">
               <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg shadow-primary-500/25">

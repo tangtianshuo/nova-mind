@@ -113,3 +113,18 @@ export interface SandboxInfo {
   path: string;
   port?: number;
 }
+
+export interface Settings {
+  theme: 'light' | 'dark' | 'auto';
+  autoSave: boolean;
+  saveInterval: number;
+  apiKey: string;
+  sandboxPath: string;
+  shortcuts: Record<string, string>;
+  editorSettings: {
+    wordWrap: boolean;
+    lineNumbers: boolean;
+    minimap: boolean;
+  };
+  fontSize: number;
+}
